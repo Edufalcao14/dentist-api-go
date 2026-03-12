@@ -1,6 +1,6 @@
-// @title           Gin Quickstart API
+// @title           Dentist API
 // @version         1.0
-// @description     Starter API built with Gin following Onion Architecture.
+// @description     Dentist API built with Gin following Onion Architecture.
 
 // @host      localhost:8080
 // @BasePath  /api/v1

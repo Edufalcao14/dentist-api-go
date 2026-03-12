@@ -23,7 +23,7 @@ func NewPostgresConnection(cfg *config.Config) (*gorm.DB, error) {
 		return nil, err
 	}
 
-	if err := db.AutoMigrate(&entity.User{}); err != nil {
+	if err := db.AutoMigrate(&entity.Tenants{}, &entity.Users{}, &entity.Dentists{}, &entity.Patients{}, &entity.Appointments{}, &entity.Payments{}, &entity.Services{}, &entity.AppointmentServices{}); err != nil {
 		return nil, err
 	}
 
