@@ -1,0 +1,33 @@
+## OS / Editor
+.DS_Store
+*.swp
+*.swo
+.vscode/
+.idea/
+
+## Go build artifacts
+bin/
+build/
+dist/
+coverage.out
+*.prof
+*.test
+
+## Go modules
+vendor/
+
+## Logs
+logs/
+*.log
+
+## Environment / secrets
+.env
+.env.*
+*.local
+
+## Node / frontend (if present)
+node_modules/
+
+## Docker
+docker-compose.override.yml
+

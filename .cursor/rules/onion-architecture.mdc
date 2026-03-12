@@ -1,0 +1,26 @@
+---
+description: Onion architecture layer boundaries and dependency rules for dentist-be
+globs: internal/**/*.go
+alwaysApply: false
+---
+
+# Onion Architecture
+
+This project follows **onion architecture**. Dependencies point inward; outer layers depend on inner layers only.
+
+## Layer locations and imports
+
+- **Domain** `internal/domain/` — No internal imports. Defines entities and repository **interfaces** (ports).
+- **Application** `internal/application/usecase/` — Imports only `domain/entity` and `domain/repository`. No `infrastructure` or `api`.
+- **Infrastructure** `internal/infrastructure/` — Implements domain repository interfaces. Imports `domain`, `config`, DB/libs. No `application` or `api`.
+- **API** `internal/api/` — Imports only `application/usecase`. Handlers call use cases; no direct `domain` or `infrastructure` imports for business flow.
+- **Composition root** `cmd/api/main.go` — Wires DB → concrete repo → use case → handler → router.
+
+## Rules
+
+1. **Domain:** Repository types are interfaces in `domain/repository/`. Implementations live in `infrastructure/repository/` with a distinct name (e.g. `GormUserRepository`).
+2. **Use cases:** Depend on repository **interfaces** from domain. Constructor receives the interface (e.g. `NewUserUseCase(repo repository.UserRepository)`).
+3. **Handlers:** Depend only on use case structs. Map HTTP request/response to use-case inputs and domain entities; do not import domain or infrastructure for business logic.
+4. **New features:** Add in order: domain (entity + repository interface) → application (usecase) → infrastructure (repository impl) → api (handler + router) → wire in `main.go`.
+
+See `docs/ARCHITECTURE.md` for the full description. When implementing a layer, use the matching skill: onion-domain, onion-application, onion-infrastructure, onion-api.
