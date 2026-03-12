@@ -1,0 +1,31 @@
+## Ignore VCS
+.git
+.gitignore
+
+## OS / Editor
+.DS_Store
+.vscode
+.idea
+
+## Build artifacts
+bin
+build
+dist
+coverage.out
+*.prof
+*.test
+
+## Dependencies / caches
+vendor
+node_modules
+
+## Local config / secrets
+.env
+.env.*
+*.local
+
+## Docker and tooling
+docker-compose.yml
+docker-compose.*.yml
+Dockerfile.*
+
